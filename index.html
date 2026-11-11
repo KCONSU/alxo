@@ -223,7 +223,7 @@ header.top.open .menu-btn .bars { display: none; }
 .duo { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 16px; align-items: stretch; margin-top: clamp(-96px, -7vw, -48px); margin-bottom: clamp(24px, 4vw, 48px); }
 .duo .half { position: relative; overflow: hidden; padding: clamp(22px, 3vw, 32px); min-width: 0; display: flex; flex-direction: column; align-items: flex-start; box-shadow: 0 30px 60px -30px rgba(10, 21, 40, 0.5); }
 .duo .half::before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
-.duo .half h3 { font-size: clamp(1.25rem, 2.4vw, 1.6rem); }
+.duo .half h2 { font-size: clamp(1.25rem, 2.4vw, 1.6rem); }
 .duo .half p:not(.label) { margin-top: 10px; color: var(--muted); }
 .duo .join { align-self: center; width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; display: grid; place-items: center; font-size: 1.2rem; box-shadow: var(--shadow); }
 
@@ -495,17 +495,17 @@ header.top.open .menu-btn .bars { display: none; }
     </div>
   </section>
 
-  <section class="duo rv" aria-label="Consulting and integration">
+  <section class="duo" aria-label="Consulting and integration">
     <div class="panel half">
       <p class="label">Consulting</p>
-      <h3>Decide what to build, and why.</h3>
+      <h2>Decide what to build, and why.</h2>
       <p>Strategy, risk review, feasibility studies and procurement advice, based on an honest assessment of where you are today.</p>
       <a class="more" href="#services">Services</a>
     </div>
     <div class="join" aria-hidden="true">&rarr;</div>
     <div class="panel half">
       <p class="label">Systems integration</p>
-      <h3>Build it, and make it work together.</h3>
+      <h2>Build it, and make it work together.</h2>
       <p>Infrastructure, business applications and the connections between them, designed, implemented and supported by the same team.</p>
       <a class="more" href="#solutions">Solutions</a>
     </div>
@@ -547,7 +547,7 @@ header.top.open .menu-btn .bars { display: none; }
       <p>We design, implement and support complex technology projects: infrastructure, business applications and the data links between them, with support that continues after go-live.</p>
       <a class="more" href="#solutions">All solutions</a>
     </div>
-    <div class="art" role="img" aria-label="Network cables plugged into a server rack"><img class="ph" src="images/solutions.jpg" srcset="images/solutions-800.webp 800w, images/solutions-1400.webp 1400w" sizes="(max-width: 760px) 100vw, 520px" width="1400" height="2100" alt="" decoding="async" loading="lazy"></div>
+    <div class="art" role="img" aria-label="Network cables plugged into a server rack"><img class="ph" src="images/solutions.jpg" srcset="images/solutions-800.webp 800w, images/solutions-1400.webp 1400w" sizes="(max-width: 760px) 100vw, 520px" width="1400" height="1050" alt="" decoding="async" loading="lazy"></div>
   </section>
 
   <section class="band features-band" aria-label="Partners, consultants and our difference">
@@ -952,7 +952,9 @@ header.top.open .menu-btn .bars { display: none; }
     if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', colors);
     window.addEventListener('hashchange', function () { setTimeout(resize, 60); });
     colors(); resize();
-    start();
+    /* start the animation after the page has loaded, so it never competes with first paint */
+    function later() { setTimeout(function () { resize(); start(); }, 600); }
+    if (document.readyState === 'complete') later(); else window.addEventListener('load', later);
   })();
 
   /* ---------- goals: finder + contact topic ---------- */
