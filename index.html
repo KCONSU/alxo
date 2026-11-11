@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}</style>
+<script>document.documentElement.classList.add('js');</script>
 <title>Alxo Consulting | IT consulting and systems integration</title>
 <meta name="description" content="Alxo Consulting advises on technology strategy, then designs, connects and runs the systems behind it. IT consulting and systems integration in Athens, Greece.">
 <meta name="theme-color" content="#071a33">
@@ -112,14 +113,14 @@ header.top.scrolled .bar { padding-block: 10px; }
 .brand:hover .mark { transform: rotate(180deg); }
 .mark::after { content: ""; position: absolute; left: 50%; top: 50%; width: 10px; height: 2.5px; background: var(--accent); transform: translate(-50%, -50%) rotate(-35deg); }
 .navwrap { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-nav { display: flex; align-items: center; gap: 6px 28px; flex-wrap: wrap; font-size: 0.95rem; font-weight: 500; }
-nav a { position: relative; text-decoration: none; color: var(--muted); padding-block: 6px; transition: color .2s; }
-nav a:hover, nav a[aria-current="page"] { color: var(--fg); }
-nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease); }
-nav a:hover::after, nav a[aria-current="page"]::after { transform: scaleX(1); }
-nav a[data-view="contact"] { background: var(--accent); color: var(--accent-fg); padding: 9px 18px; border-radius: var(--radius-sm); transition: background .2s, color .2s; }
-nav a[data-view="contact"]::after { display: none; }
-nav a[data-view="contact"]:hover { background: var(--fg); color: var(--bg); }
+#mainnav { display: flex; align-items: center; gap: 6px 28px; flex-wrap: wrap; font-size: 0.95rem; font-weight: 500; }
+#mainnav a { position: relative; text-decoration: none; color: var(--muted); padding-block: 6px; transition: color .2s; }
+#mainnav a:hover, #mainnav a[aria-current="page"] { color: var(--fg); }
+#mainnav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease); }
+#mainnav a:hover::after, #mainnav a[aria-current="page"]::after { transform: scaleX(1); }
+#mainnav a[data-view="contact"] { background: var(--accent); color: var(--accent-fg); padding: 9px 18px; border-radius: var(--radius-sm); transition: background .2s, color .2s; }
+#mainnav a[data-view="contact"]::after { display: none; }
+#mainnav a[data-view="contact"]:hover { background: var(--fg); color: var(--bg); }
 .theme, .menu-btn { width: 36px; height: 36px; border-radius: var(--radius-sm); border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; padding: 0; transition: border-color .2s; }
 .theme:hover, .menu-btn:hover { border-color: var(--accent); }
 .theme svg, .menu-btn svg { width: 18px; height: 18px; fill: none; stroke: var(--fg); stroke-width: 2; stroke-linecap: round; }
@@ -307,10 +308,69 @@ header.top.open .menu-btn .bars { display: none; }
 .bigcta .btn.primary { background: var(--band-fg); color: var(--band); border-color: var(--band-fg); }
 .bigcta .btn.primary:hover { background: transparent; color: var(--band-fg); }
 
-.footwrap { padding-bottom: 8px; }
-footer { border-top: 1px solid var(--line); padding-block: 28px; font-size: 0.85rem; letter-spacing: 0.04em; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* ---------- icons ---------- */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.ico { width: 48px; height: 48px; border-radius: 10px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); flex: none; }
+.ico svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.ico.sm { width: 40px; height: 40px; border-radius: 8px; margin-bottom: 14px; transition: background .25s, color .25s; }
+.ico.sm svg { width: 20px; height: 20px; }
+.card:hover .ico.sm, .card[open] .ico.sm { background: var(--accent); color: var(--accent-fg); }
+
+/* ---------- full-bleed tinted band with three feature cards ---------- */
+.band { position: relative; background: var(--alt); box-shadow: 0 0 0 100vmax var(--alt); clip-path: inset(0 -100vmax); padding-block: clamp(56px, 8vw, 96px); margin-top: clamp(24px, 4vw, 48px); }
+.features { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.feature { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(22px, 3vw, 32px); display: flex; flex-direction: column; align-items: flex-start; transition: border-color .25s, box-shadow .25s, transform .35s var(--ease); }
+.feature:hover { border-color: var(--accent); box-shadow: var(--shadow); transform: translateY(-4px); }
+.feature .ico { margin-bottom: 22px; }
+.feature h2 { font-size: clamp(1.3rem, 2.2vw, 1.55rem); }
+.feature .body-copy p { font-size: 0.97rem; color: var(--muted); margin-top: 12px; }
+.feature .body-copy > p:first-child { margin-top: 14px; }
+
+/* ---------- process timeline that fills as you scroll ---------- */
+.timeline { --p: 0; position: relative; list-style: none; counter-reset: s; padding: 0; margin: 28px 0 0; }
+.timeline::before, .timeline::after { content: ""; position: absolute; left: 17px; top: 18px; bottom: 18px; width: 2px; background: var(--line); }
+.timeline::after { background: var(--accent); transform-origin: top; transform: scaleY(var(--p)); }
+.timeline li { counter-increment: s; position: relative; padding: 7px 0 26px 58px; font-weight: 500; color: var(--muted); transition: color .3s; }
+.timeline li:last-child { padding-bottom: 7px; }
+.timeline li::before { content: counter(s, decimal-leading-zero); position: absolute; left: 0; top: 0; z-index: 1; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-size: 0.78rem; font-weight: 600; background: var(--bg); color: var(--muted); border: 2px solid var(--line); transition: background .3s, color .3s, border-color .3s, transform .3s var(--ease); }
+.timeline li.on { color: var(--fg); }
+.timeline li.on::before { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); transform: scale(1.06); }
+
+/* ---------- entrance motion (only when JS runs, never with reduced motion) ---------- */
+.js .stagger > * { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .7s var(--ease); transition-delay: calc(var(--i, 0) * 80ms); }
+.js .stagger.in > * { opacity: 1; transform: none; }
+.js .stagger.in > *:hover { transition-delay: 0s; }
+.hero h1 .w { display: inline-block; opacity: 0; transform: translateY(0.35em); animation: wordin .7s var(--ease) forwards; animation-delay: calc(120ms + var(--i) * 70ms); }
+@keyframes wordin { to { opacity: 1; transform: none; } }
+
+/* ---------- footer ---------- */
+.site-foot { background: var(--band); color: var(--band-fg); margin-left: calc(-1 * var(--gutter)); margin-right: calc(-1 * max(16px, env(safe-area-inset-right, 0px))); padding: clamp(48px, 6vw, 72px) var(--gutter) 0; padding-right: max(16px, env(safe-area-inset-right, 0px)); font-size: 0.92rem; }
+.site-foot { border-top: 1px solid rgba(255, 255, 255, 0.08); }
+.site-foot a { text-decoration: none; color: var(--band-muted); transition: color .2s; }
+.site-foot a:hover { color: var(--band-fg); }
+.site-foot .brand { color: var(--band-fg); }
+.site-foot .mark, .site-foot .mark::after { border-color: #7fb2ff; }
+.site-foot .mark::after { background: #7fb2ff; }
+.foot-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); gap: 32px; padding-bottom: clamp(36px, 5vw, 56px); }
+.foot-brand p { margin-top: 14px; color: var(--band-muted); max-width: 26ch; }
+.foot-col h2 { font-family: var(--font-body); font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; }
+.foot-col h2 a { color: var(--band-fg); }
+.foot-col ul { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.foot-contact li { color: var(--band-muted); overflow-wrap: anywhere; }
+.foot-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-block: 22px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px 24px; color: var(--band-muted); font-size: 0.85rem; }
+.foot-bottom nav { display: flex; flex-wrap: wrap; gap: 6px 22px; }
 
 /* ---------- responsive ---------- */
+@media (max-width: 960px) {
+  .features { grid-template-columns: minmax(0, 1fr); }
+  .foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foot-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 520px) {
+  .foot-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
 @media (max-width: 760px) {
   .row, .two, .finder, .contactgrid, .duo { grid-template-columns: minmax(0, 1fr); }
   .duo { margin-top: -40px; }
@@ -325,12 +385,12 @@ footer { border-top: 1px solid var(--line); padding-block: 28px; font-size: 0.85
   .navwrap { display: contents; }
   .theme { margin-left: auto; order: 1; }
   .menu-btn { display: grid; order: 2; }
-  nav { order: 3; width: 100%; display: none; flex-direction: column; align-items: stretch; gap: 0; padding-bottom: 8px; font-size: 1rem; }
-  header.top.open nav { display: flex; }
-  nav a { padding: 12px 2px; border-top: 1px solid var(--line); }
-  nav a::after { display: none; }
-  nav a[aria-current="page"] { color: var(--accent); }
-  nav a[data-view="contact"] { margin-top: 10px; text-align: center; padding: 12px 18px; border-top: 0; }
+  #mainnav { order: 3; width: 100%; display: none; flex-direction: column; align-items: stretch; gap: 0; padding-bottom: 8px; font-size: 1rem; }
+  header.top.open #mainnav { display: flex; }
+  #mainnav a { padding: 12px 2px; border-top: 1px solid var(--line); }
+  #mainnav a::after { display: none; }
+  #mainnav a[aria-current="page"] { color: var(--accent); }
+  #mainnav a[data-view="contact"] { margin-top: 10px; text-align: center; padding: 12px 18px; border-top: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -339,10 +399,15 @@ footer { border-top: 1px solid var(--line); padding-block: 28px; font-size: 0.85
   .art, .ph { transition: opacity .3s ease; }
   .art:hover { transform: none; }
   .art:hover img { scale: 1; }
+  .js .stagger > * { opacity: 1; transform: none; transition: none; }
+  .hero h1 .w { opacity: 1; transform: none; animation: none; }
+  .feature:hover { transform: none; }
+  .timeline li::before { transition: none; }
 }
 </style>
 </head>
 <body>
+<svg class="sprite" aria-hidden="true" focusable="false"><symbol id="i-partners" viewBox="0 0 24 24"><path d="M10 13a3 3 0 0 1 0-4.2l2-2a3 3 0 0 1 4.2 4.2l-1 1"/><path d="M14 11a3 3 0 0 1 0 4.2l-2 2a3 3 0 0 1-4.2-4.2l1-1"/></symbol><symbol id="i-team" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><path d="M3 19c0-3.5 3-5 6-5s6 1.5 6 5"/><circle cx="17" cy="8" r="2.5"/><path d="M17 13.5c2.5 0 4 1.5 4 4.5"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6"/></symbol><symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol><symbol id="i-shieldcheck" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol><symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><path d="M3 19c0-3.5 3-5 6-5s6 1.5 6 5"/><circle cx="17" cy="8" r="2.5"/><path d="M17 13.5c2.5 0 4 1.5 4 4.5"/></symbol><symbol id="i-rocket" viewBox="0 0 24 24"><path d="M14 4c3 0 6 3 6 6l-6 6-6-6c0-3 3-6 6-6z"/><circle cx="14" cy="10" r="1.6"/><path d="M8 10l-3 1-1 3 4-1M14 16l-1 3 3-1 1-3M6 18l-2 2"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></symbol><symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="6" rx="1.5"/><rect x="4" y="14" width="16" height="6" rx="1.5"/><path d="M8 7h.01M8 17h.01"/></symbol><symbol id="i-apps" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></symbol><symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a3 3 0 0 1 0-4.2l2-2a3 3 0 0 1 4.2 4.2l-1 1"/><path d="M14 11a3 3 0 0 1 0 4.2l-2 2a3 3 0 0 1-4.2-4.2l1-1"/></symbol><symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18h10a4 4 0 0 0 .6-8A6 6 0 0 0 6 10.5 3.8 3.8 0 0 0 7 18z"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/></symbol><symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></symbol></svg>
 <header class="top">
   <div class="bar">
     <a class="brand" href="#home"><span class="mark" aria-hidden="true"></span>Alxo Consulting</a>
@@ -435,41 +500,34 @@ footer { border-top: 1px solid var(--line); padding-block: 28px; font-size: 0.85
     <div class="art" role="img" aria-label="Network cables plugged into a server rack"><img class="ph" src="images/solutions.jpg" srcset="images/solutions-800.webp 800w, images/solutions-1400.webp 1400w" sizes="(max-width: 760px) 100vw, 520px" width="1400" height="2100" alt="" decoding="async" loading="lazy"></div>
   </section>
 
-  <section class="section rv">
-    <div class="two">
-      <div>
+  <section class="band features-band" aria-label="Partners, consultants and our difference">
+    <div class="features stagger">
+      <article class="feature">
+        <span class="ico" aria-hidden="true"><svg><use href="#i-partners"/></svg></span>
         <p class="label">Our partners</p>
         <h2>Technology chosen for fit.</h2>
-      </div>
-      <div class="body-copy">
-        <p>We work with established technology vendors and specialist firms, and we choose products by how well they suit your needs. That lets us deliver complete solutions for companies, public bodies and nonprofits, even when a problem spans several fields.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section rv">
-    <div class="two">
-      <div>
+        <div class="body-copy">
+          <p>We work with established technology vendors and specialist firms, and we choose products by how well they suit your needs. That lets us deliver complete solutions for companies, public bodies and nonprofits, even when a problem spans several fields.</p>
+        </div>
+      </article>
+      <article class="feature">
+        <span class="ico" aria-hidden="true"><svg><use href="#i-team"/></svg></span>
         <p class="label">Our consultants</p>
         <h2>Consultants and engineers, working side by side.</h2>
-      </div>
-      <div class="body-copy">
-        <p>Our consultants advise and our engineers deliver. Because they work together, the design that was agreed is the system that gets built.</p>
-        <p>We stay on afterwards to monitor and maintain it, so that small problems are fixed before they turn into outages and your team can concentrate on running the business.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section rv">
-    <div class="two">
-      <div>
+        <div class="body-copy">
+          <p>Our consultants advise and our engineers deliver. Because they work together, the design that was agreed is the system that gets built.</p>
+          <p>We stay on afterwards to monitor and maintain it, so that small problems are fixed before they turn into outages and your team can concentrate on running the business.</p>
+        </div>
+      </article>
+      <article class="feature">
+        <span class="ico" aria-hidden="true"><svg><use href="#i-target"/></svg></span>
         <p class="label">Our difference</p>
         <h2>How we are different.</h2>
-      </div>
-      <div class="body-copy">
-        <p>We stay close to every project and measure ourselves by outcomes. We keep risk visible and low, and we invest in lasting relationships with the people we work with.</p>
-        <p>Every program begins with a detailed assessment of where you stand today, and ends with a system that your own team can run.</p>
-      </div>
+        <div class="body-copy">
+          <p>We stay close to every project and measure ourselves by outcomes. We keep risk visible and low, and we invest in lasting relationships with the people we work with.</p>
+          <p>Every program begins with a detailed assessment of where you stand today, and ends with a system that your own team can run.</p>
+        </div>
+      </article>
     </div>
   </section>
 </div>
@@ -521,7 +579,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px; font-size: 0.85
       </div>
       <div class="body-copy">
         <p>Consulting and integration are two halves of one engagement. You can begin with either, and you can stop after either.</p>
-        <ol class="steps" aria-label="Stages of an engagement">
+        <ol class="timeline" aria-label="Stages of an engagement">
           <li>Assess your systems, people and goals</li>
           <li>Advise on strategy, risk and priorities</li>
           <li>Design the architecture and the plan</li>
@@ -549,13 +607,13 @@ footer { border-top: 1px solid var(--line); padding-block: 28px; font-size: 0.85
 
   <figure class="photo-wide" role="img" aria-label="Two colleagues brainstorming at a whiteboard"><img class="ph" src="images/services-band.jpg" srcset="images/services-band-800.webp 800w, images/services-band-1200.webp 1200w, images/services-band-1920.webp 1920w" sizes="(max-width: 1112px) 100vw, 1080px" width="1920" height="1280" alt="" decoding="async" loading="lazy"></figure>
 
-  <ul class="cards">
-    <li><details class="card"><summary><h3>Advisory</h3><p>Strategy support for growth, innovation and cost control, drawing on local and international experience.</p></summary><div class="more-info"><b>You get</b><ul><li>An IT strategy and roadmap</li><li>A budget and priority plan</li><li>Clear recommendations for management</li></ul></div></details></li>
-    <li><details class="card"><summary><h3>Audit and assurance</h3><p>Helps risk and technology leaders weigh opportunity against exposure before committing to new initiatives.</p></summary><div class="more-info"><b>You get</b><ul><li>A risk register for your systems</li><li>A gap analysis against recognized standards</li><li>A prioritized list of fixes</li></ul></div></details></li>
-    <li><details class="card"><summary><h3>Data protection and compliance</h3><p>Specialists from several fields cover privacy, security and regulation in a single engagement.</p></summary><div class="more-info"><b>You get</b><ul><li>One provider instead of several hand-offs</li><li>Early sight of wider business issues</li><li>One main point of contact</li></ul></div></details></li>
-    <li><details class="card"><summary><h3>People and organization</h3><p>Evidence-based help with skills, roles, HR processes and the change that new tools bring.</p></summary><div class="more-info"><b>You get</b><ul><li>A skills and capacity analysis</li><li>A change and training plan</li><li>Clear ownership of new systems</li></ul></div></details></li>
-    <li><details class="card"><summary><h3>Start-ups and private clients</h3><p>Guidance for young and growing firms on funding, hiring, operations, exports and going digital.</p></summary><div class="more-info"><b>You get</b><ul><li>A funding and cost model</li><li>Technology choices that scale</li><li>A hiring and team plan</li></ul></div></details></li>
-    <li><details class="card"><summary><h3>Business services</h3><p>For family and privately held firms: planning, governance, succession and keeping the business true to its values.</p></summary><div class="more-info"><b>You get</b><ul><li>Governance and decision rules</li><li>A succession and transition plan</li><li>Operations that match company values</li></ul></div></details></li>
+  <ul class="cards stagger">
+    <li><details class="card"><summary><span class="ico sm" aria-hidden="true"><svg><use href="#i-compass"/></svg></span><h3>Advisory</h3><p>Strategy support for growth, innovation and cost control, drawing on local and international experience.</p></summary><div class="more-info"><b>You get</b><ul><li>An IT strategy and roadmap</li><li>A budget and priority plan</li><li>Clear recommendations for management</li></ul></div></details></li>
+    <li><details class="card"><summary><span class="ico sm" aria-hidden="true"><svg><use href="#i-shieldcheck"/></svg></span><h3>Audit and assurance</h3><p>Helps risk and technology leaders weigh opportunity against exposure before committing to new initiatives.</p></summary><div class="more-info"><b>You get</b><ul><li>A risk register for your systems</li><li>A gap analysis against recognized standards</li><li>A prioritized list of fixes</li></ul></div></details></li>
+    <li><details class="card"><summary><span class="ico sm" aria-hidden="true"><svg><use href="#i-lock"/></svg></span><h3>Data protection and compliance</h3><p>Specialists from several fields cover privacy, security and regulation in a single engagement.</p></summary><div class="more-info"><b>You get</b><ul><li>One provider instead of several hand-offs</li><li>Early sight of wider business issues</li><li>One main point of contact</li></ul></div></details></li>
+    <li><details class="card"><summary><span class="ico sm" aria-hidden="true"><svg><use href="#i-people"/></svg></span><h3>People and organization</h3><p>Evidence-based help with skills, roles, HR processes and the change that new tools bring.</p></summary><div class="more-info"><b>You get</b><ul><li>A skills and capacity analysis</li><li>A change and training plan</li><li>Clear ownership of new systems</li></ul></div></details></li>
+    <li><details class="card"><summary><span class="ico sm" aria-hidden="true"><svg><use href="#i-rocket"/></svg></span><h3>Start-ups and private clients</h3><p>Guidance for young and growing firms on funding, hiring, operations, exports and going digital.</p></summary><div class="more-info"><b>You get</b><ul><li>A funding and cost model</li><li>Technology choices that scale</li><li>A hiring and team plan</li></ul></div></details></li>
+    <li><details class="card"><summary><span class="ico sm" aria-hidden="true"><svg><use href="#i-briefcase"/></svg></span><h3>Business services</h3><p>For family and privately held firms: planning, governance, succession and keeping the business true to its values.</p></summary><div class="more-info"><b>You get</b><ul><li>Governance and decision rules</li><li>A succession and transition plan</li><li>Operations that match company values</li></ul></div></details></li>
   </ul>
 
   <section class="section rv">
@@ -626,13 +684,13 @@ footer { border-top: 1px solid var(--line); padding-block: 28px; font-size: 0.85
 
   <figure class="photo-wide" role="img" aria-label="Fiber optic cables connected to network equipment"><img class="ph" src="images/infrastructure.jpg" srcset="images/infrastructure-800.webp 800w, images/infrastructure-1200.webp 1200w, images/infrastructure-1920.webp 1920w" sizes="(max-width: 1112px) 100vw, 1080px" width="1920" height="1277" alt="" decoding="async" loading="lazy"></figure>
 
-  <ul class="cards">
-    <li><details class="card"><summary><h3>Infrastructure and networks</h3><p>Servers, storage, networking and telecom equipment, selected, installed and configured to match how you work.</p></summary><div class="more-info"><b>You get</b><ul><li>A reviewed and correctly sized architecture</li><li>Equipment installed, configured and documented</li><li>A tested move from the old setup to the new</li></ul></div></details></li>
-    <li><details class="card"><summary><h3>Business applications</h3><p>Industry-specific software, implemented and adapted to your processes, with your team trained to use it.</p></summary><div class="more-info"><b>You get</b><ul><li>Requirements agreed with the people who use the system</li><li>Configuration and customization</li><li>Training and a clear hand-over</li></ul></div></details></li>
-    <li><details class="card"><summary><h3>Systems and data integration</h3><p>Links between your applications, databases and partner systems, so information moves without being retyped.</p></summary><div class="more-info"><b>You get</b><ul><li>A map of how data flows today</li><li>Interfaces and APIs built and tested</li><li>Monitoring that shows when a connection fails</li></ul></div></details></li>
-    <li><details class="card"><summary><h3>Cloud and hybrid environments</h3><p>Workloads placed where they run best: on your own premises, in the cloud or across both.</p></summary><div class="more-info"><b>You get</b><ul><li>An assessment of what should move and what should stay</li><li>A migration plan with fallbacks</li><li>Cost and performance tracking after the move</li></ul></div></details></li>
-    <li><details class="card"><summary><h3>Security and resilience</h3><p>Protection, backup and recovery designed in from the start instead of added afterwards.</p></summary><div class="more-info"><b>You get</b><ul><li>Access and identity controls</li><li>Backup and recovery that is tested regularly</li><li>A plan for handling incidents</li></ul></div></details></li>
-    <li><details class="card"><summary><h3>Managed services and support</h3><p>Monitoring, maintenance and a service desk, so that systems keep running well after go-live.</p></summary><div class="more-info"><b>You get</b><ul><li>Proactive monitoring</li><li>Agreed response times</li><li>Regular reviews with ideas for improvement</li></ul></div></details></li>
+  <ul class="cards stagger">
+    <li><details class="card"><summary><span class="ico sm" aria-hidden="true"><svg><use href="#i-server"/></svg></span><h3>Infrastructure and networks</h3><p>Servers, storage, networking and telecom equipment, selected, installed and configured to match how you work.</p></summary><div class="more-info"><b>You get</b><ul><li>A reviewed and correctly sized architecture</li><li>Equipment installed, configured and documented</li><li>A tested move from the old setup to the new</li></ul></div></details></li>
+    <li><details class="card"><summary><span class="ico sm" aria-hidden="true"><svg><use href="#i-apps"/></svg></span><h3>Business applications</h3><p>Industry-specific software, implemented and adapted to your processes, with your team trained to use it.</p></summary><div class="more-info"><b>You get</b><ul><li>Requirements agreed with the people who use the system</li><li>Configuration and customization</li><li>Training and a clear hand-over</li></ul></div></details></li>
+    <li><details class="card"><summary><span class="ico sm" aria-hidden="true"><svg><use href="#i-link"/></svg></span><h3>Systems and data integration</h3><p>Links between your applications, databases and partner systems, so information moves without being retyped.</p></summary><div class="more-info"><b>You get</b><ul><li>A map of how data flows today</li><li>Interfaces and APIs built and tested</li><li>Monitoring that shows when a connection fails</li></ul></div></details></li>
+    <li><details class="card"><summary><span class="ico sm" aria-hidden="true"><svg><use href="#i-cloud"/></svg></span><h3>Cloud and hybrid environments</h3><p>Workloads placed where they run best: on your own premises, in the cloud or across both.</p></summary><div class="more-info"><b>You get</b><ul><li>An assessment of what should move and what should stay</li><li>A migration plan with fallbacks</li><li>Cost and performance tracking after the move</li></ul></div></details></li>
+    <li><details class="card"><summary><span class="ico sm" aria-hidden="true"><svg><use href="#i-shield"/></svg></span><h3>Security and resilience</h3><p>Protection, backup and recovery designed in from the start instead of added afterwards.</p></summary><div class="more-info"><b>You get</b><ul><li>Access and identity controls</li><li>Backup and recovery that is tested regularly</li><li>A plan for handling incidents</li></ul></div></details></li>
+    <li><details class="card"><summary><span class="ico sm" aria-hidden="true"><svg><use href="#i-pulse"/></svg></span><h3>Managed services and support</h3><p>Monitoring, maintenance and a service desk, so that systems keep running well after go-live.</p></summary><div class="more-info"><b>You get</b><ul><li>Proactive monitoring</li><li>Agreed response times</li><li>Regular reviews with ideas for improvement</li></ul></div></details></li>
   </ul>
 
   <section class="section rv">
@@ -643,7 +701,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px; font-size: 0.85
       </div>
       <div class="body-copy">
         <p>Each stage ends with something you can review, so you always know where the project stands and what comes next.</p>
-        <ol class="steps" aria-label="Stages of an integration project">
+        <ol class="timeline" aria-label="Stages of an integration project">
           <li>Gather requirements</li>
           <li>Design the architecture</li>
           <li>Build and connect</li>
@@ -710,17 +768,30 @@ footer { border-top: 1px solid var(--line); padding-block: 28px; font-size: 0.85
 
 </main>
 
-<div class="wrap footwrap">
-  <footer>
-    <span>&copy; Alxo Consulting</span>
-    <span>IT consulting and systems integration</span>
-  </footer>
-</div>
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#home"><span class="mark" aria-hidden="true"></span>Alxo Consulting</a>
+        <p>IT consulting and systems integration</p>
+      </div>
+      <nav class="foot-col" aria-label="Services"><h2><a href="#services">Services</a></h2><ul><li><a href="#services">Advisory</a></li><li><a href="#services">Audit and assurance</a></li><li><a href="#services">Data protection and compliance</a></li><li><a href="#services">People and organization</a></li><li><a href="#services">Start-ups and private clients</a></li><li><a href="#services">Business services</a></li></ul></nav>
+      <nav class="foot-col" aria-label="Solutions"><h2><a href="#solutions">Solutions</a></h2><ul><li><a href="#solutions">Infrastructure and networks</a></li><li><a href="#solutions">Business applications</a></li><li><a href="#solutions">Systems and data integration</a></li><li><a href="#solutions">Cloud and hybrid environments</a></li><li><a href="#solutions">Security and resilience</a></li><li><a href="#solutions">Managed services and support</a></li></ul></nav>
+      <div class="foot-col"><h2><a href="#contact">Contact</a></h2>
+        <ul class="foot-contact"><li>Poseidonos Str., Athens, Greece</li><li><a href="tel:+302299028309">+302299028309</a></li><li><a href="mailto:info@alxoconsulting.com">info@alxoconsulting.com</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; Alxo Consulting</span>
+      <nav aria-label="Footer"><a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#solutions">Solutions</a><a href="#contact">Contact</a></nav>
+    </div>
+  </div>
+</footer>
 
 <script>
 (function () {
   var views = ['home', 'about', 'services', 'solutions', 'contact'];
-  var links = document.querySelectorAll('nav a');
+  var links = document.querySelectorAll('#mainnav a');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var root = document.documentElement;
 
@@ -1031,10 +1102,59 @@ footer { border-top: 1px solid var(--line); padding-block: 28px; font-size: 0.85
     else { img.addEventListener('load', done); img.addEventListener('error', function () { img.remove(); }); }
   });
 
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* hero headline: each word rises in turn (text itself is unchanged) */
+  var h1 = document.querySelector('.hero h1');
+  if (h1 && !reduce) {
+    var n = 0;
+    (function split(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (c) {
+        if (c.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          c.textContent.split(/(\s+)/).forEach(function (part) {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            var s = document.createElement('span'); s.className = 'w'; s.style.setProperty('--i', n++); s.textContent = part; frag.appendChild(s);
+          });
+          node.replaceChild(frag, c);
+        } else if (c.nodeType === 1) split(c);
+      });
+    })(h1);
+  }
+
+  /* card groups appear one after another as they scroll into view */
+  var groups = document.querySelectorAll('.stagger');
+  groups.forEach(function (g) { Array.prototype.forEach.call(g.children, function (el, i) { el.style.setProperty('--i', i); }); });
+  if ('IntersectionObserver' in window && !reduce) {
+    var gio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); gio.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    groups.forEach(function (g) { gio.observe(g); });
+  } else groups.forEach(function (g) { g.classList.add('in'); });
+
+  /* process timelines fill up to the middle of the screen */
+  var lines = Array.prototype.slice.call(document.querySelectorAll('.timeline'));
+  function fill() {
+    var mark = window.innerHeight * 0.62;
+    lines.forEach(function (ol) {
+      var r = ol.getBoundingClientRect();
+      if (!r.height) return;
+      var p = reduce ? 1 : Math.max(0, Math.min(1, (mark - r.top - 18) / (r.height - 36)));
+      ol.style.setProperty('--p', p.toFixed(3));
+      Array.prototype.forEach.call(ol.children, function (li) {
+        li.classList.toggle('on', reduce || li.getBoundingClientRect().top + 18 <= mark);
+      });
+    });
+  }
+
   /* header gets a shadow once the page scrolls */
   var top = document.querySelector('header.top'), ticking = false;
-  function onScroll() { ticking = false; top.classList.toggle('scrolled', window.scrollY > 8); }
-  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  function onScroll() { ticking = false; top.classList.toggle('scrolled', window.scrollY > 8); fill(); }
+  function req() { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }
+  window.addEventListener('scroll', req, { passive: true });
+  window.addEventListener('resize', req);
+  window.addEventListener('hashchange', function () { setTimeout(req, 60); });
   onScroll();
 })();
 </script>
